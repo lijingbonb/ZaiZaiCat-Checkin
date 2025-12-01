@@ -79,6 +79,16 @@
 
 **脚本路径**: `script/erke/main.py`
 
+### 7. WPS Office
+- ✅ 每日自动签到
+- ✅ 自动获取RSA公钥
+- ✅ 自动生成加密参数
+- ✅ 多账号管理
+- ✅ 推送通知支持
+- ✅ 详细日志输出
+
+**脚本路径**: `script/wps/main.py`
+
 
 ## ✅ 脚本可用性状态
 
@@ -95,6 +105,7 @@
 | 🛒 华润通-Ole'  | `script/huaruntong/ole/main.py` | ❌ 不可用 | 需要动态获取微信code换取token |
 | 🎯 华润通-文体未来荟 | `script/huaruntong/wentiweilaihui/main.py` | ✅ 可用 | 支持签到和积分查询 |
 | 👟 鸿星尔克      | `script/erke/main.py` | ✅ 可用 | 支持签到和积分明细查询 |
+| 📝 WPS Office  | `script/wps/main.py` | ✅ 可用 | 支持自动签到和加密参数生成 |
 ### 状态说明
 
 - ✅ **可用**: 脚本完整且功能正常，可以直接使用
@@ -134,9 +145,16 @@ ZaiZaiCat-Checkin/
 │       ├── huaruntong_wx/     # 微信小程序
 │       ├── ole/               # Ole'精品超市
 │       └── wentiweilaihui/    # 文体未来荟
-│   └── erke/                   # 鸿星尔克
+│   ├── erke/                   # 鸿星尔克
 │       ├── api.py
 │       └── main.py
+│   └── wps/                    # WPS Office
+│       ├── api.py             # API接口和加密模块
+│       ├── main.py            # 主程序入口
+│       ├── README.md          # WPS脚本说明文档
+│       ├── QUICK_START.md     # 快速配置指南
+│       ├── CHANGES.md         # 修改说明
+│       └── test_config.py     # 配置测试脚本
 ├── notification.py             # 通知推送模块
 ├── LICENSE                     # MIT 开源协议
 └── README.md                   # 项目说明文档
@@ -147,6 +165,7 @@ ZaiZaiCat-Checkin/
 - **Python**: 3.7+ (推荐 3.9+)
 - **依赖库**:
   - `requests` - HTTP 请求库
+  - `pycryptodome` - 加密库（WPS 签到需要）
   - `logging` - 日志记录
   - 其他标准库
 
@@ -162,7 +181,11 @@ cd ZaiZaiCat-Checkin
 ### 2. 安装依赖
 
 ```bash
+# 基础依赖
 pip install requests
+
+# WPS 签到需要的加密库
+pip install pycryptodome
 ```
 
 ### 3. 配置账号信息
@@ -192,8 +215,8 @@ pip install requests
 # 鸿星尔克 - 每天 08:30
 30 8 * * * python3 /ql/scripts/ZaiZaiCat-Checkin/script/erke/main.py
 
-# 什么值得买 - 每天 07:00
-30 8 * * * python3 /ql/scripts/ZaiZaiCat-Checkin/script/erke/main.py
+# WPS Office - 每天 07:30
+30 7 * * * python3 /ql/scripts/ZaiZaiCat-Checkin/script/wps/main.py
 
 # 什么值得买 - 每天 07:00
 0 7 * * * python3 /ql/scripts/ZaiZaiCat-Checkin/smzdm/sign_daily_task/main.py
@@ -252,6 +275,16 @@ pip install requests
         "unionid": "你的unionid",
         "openid": "你的openid",
         "wx_openid": "你的微信openid",
+        "user_agent": "自定义UA（可选）"
+      }
+    ]
+  },
+  "wps": {
+    "accounts": [
+      {
+        "account_name": "账号1",
+        "user_id": 123456789,
+        "cookies": "你的完整Cookie字符串",
         "user_agent": "自定义UA（可选）"
       }
     ]
@@ -397,6 +430,10 @@ Cookie 有有效期限制，失效后需要重新获取并更新配置文件。�
 4. 检查文件权限是否正确
 
 ## 📝 更新日志
+
+### 2025-12-01
+- ✨ 新增 WPS Office 自动签到脚本
+- 📝 更新项目说明文档
 
 ### 2025-11-28
 - ✨ 新增鸿星尔克签到脚本
