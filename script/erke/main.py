@@ -172,23 +172,24 @@ class ErkeTasks:
 
             if sign_result['success']:
                 result['sign_info'] = sign_result['result']
+                self.logger.info(f"[{account_name}] 签到结果: {sign_result['result']}")
 
                 # 解析签到返回的信息
                 if sign_result['result'] and isinstance(sign_result['result'], dict):
-                    code = sign_result['result'].get('code', '')
-                    message = sign_result['result'].get('message', '')
+                    code = str(sign_result['result'].get('code', '') or '').strip()
+                    message = sign_result['result'].get('message', '') or ''
 
-                    # code: 1001 表示已签到，0000 表示签到成功
-                    if code == '0000':
+                    success_codes = {'0000', '1001', '0', '200'}
+                    message_indicates_success = any(keyword in message for keyword in ['成功', '已签到'])
+
+                    if code in success_codes or message_indicates_success:
                         result['success'] = True
-                        self.logger.info(f"[{account_name}] 签到成功: {message}")
-                    elif code == '1001':
-                        result['success'] = True
-                        self.logger.info(f"[{account_name}] {message}")
+                        log_msg = message or '签到成功'
+                        self.logger.info(f"[{account_name}] {log_msg}")
                     else:
                         result['success'] = False
-                        result['error'] = message
-                        self.logger.warning(f"[{account_name}] 签到返回: {message}")
+                        result['error'] = message or f'未知返回码: {code}'
+                        self.logger.warning(f"[{account_name}] 签到返回: {message or code}")
                 else:
                     result['success'] = True
                     self.logger.info(f"[{account_name}] 签到完成")
