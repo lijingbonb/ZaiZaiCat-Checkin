@@ -30,97 +30,23 @@
 - 🎯 **任务管理** - 自动获取并完成各平台的日常任务
 - ⚙️ **灵活配置** - 统一的配置文件管理，易于维护
 
-## 🎪 支持平台
-
-### 1. 顺丰速运（SF Express）
-- ✅ 每日签到
-- ✅ 积分任务自动完成
-- ✅ 任务列表管理
-- ✅ 积分查询
-
-**脚本路径**: `script/sf/main.py`
-
-### 2. 恩山论坛（Enshan）
-- ✅ 每日签到
-- ✅ 签到状态查询
-- ✅ 积分信息统计
-
-**脚本路径**: `script/enshan/sign_in.py`
-
-### 3. 看雪论坛（Kanxue）
-- ✅ 每日签到
-- ✅ 用户信息查询
-- ✅ 签到记录管理
-
-**脚本路径**: `script/kanxue/sign_in.py`
-
-### 4. 上海杨浦（SHYP）
-- ✅ 任务列表获取
-- ✅ 积分任务完成
-- ✅ 签到信息查询
-- ✅ 商品自动抢购（可选）
-
-**脚本路径**: `script/shyp/main.py`
-
-### 5. 华润通（Huaruntong）
-支持多个子平台：
-- **万象星（999）**: 签到、积分查询
-- **微信小程序版**: 签到送积分
-- **Ole'精品超市**: 签到任务
-- **文体未来荟**: 签到任务
-
-**脚本路径**: `script/huaruntong/*/main.py`
-
-### 6. 鸿星尔克（Erke）
-- ✅ 查询积分明细
-- ✅ 自动签到
-- ✅ 多账号支持
-- ✅ 详细日志输出
-
-**脚本路径**: `script/erke/main.py`
-
-### 7. WPS Office
-- ✅ 每日自动签到
-- ✅ 自动获取RSA公钥
-- ✅ 自动生成加密参数
-- ✅ 多账号管理
-- ✅ 推送通知支持
-- ✅ 详细日志输出
-
-**脚本路径**: `script/wps/main.py`
-
-### 8. 什么值得买 (SMZDM)
-- **每日签到**: 自动完成每日签到，获取积分奖励
-- **众测任务**: 自动执行众测相关任务
-  - 浏览文章任务
-  - 互动任务
-  - 自动领取任务奖励
-- **互动任务**: 自动执行用户互动任务
-  - 浏览文章
-  - 关注用户
-  - 自动领取奖励
-- **多账号支持**: 支持配置多个账号同时执行
-- **详细日志**: 完整的执行日志记录
-
-**脚本路径**: `script/smzdm/sign_daily_task/main.py`
-
 ## ✅ 脚本可用性状态
 
 以下是各平台脚本的当前可用性状态：
 
-| 平台           | 脚本路径 | 状态 | 说明 |
-|--------------|---------|------|------|
-| 🚚 顺丰速运      | `script/sf/main.py` | ✅ 可用 | 支持签到和积分任务 |
-| 📱 恩山论坛      | `script/enshan/sign_in.py` | ✅ 可用 | 支持每日签到 |
-| 🔐 看雪论坛      | `script/kanxue/sign_in.py` | ✅ 可用 | 支持每日签到 |
-| 📺 上海杨浦      | `script/shyp/main.py` | ✅ 可用 | 支持任务列表和积分任务 |
-| 🏢 华润通-万象星   | `script/huaruntong/999/main.py` | ✅ 可用 | 支持答题签到 |
-| 💳 华润通-微信版   | `script/huaruntong/huaruntong_wx/main.py` | ✅ 可用 | 支持签到送积分 |
+| 平台           | 脚本路径 | 状态 | 说明                  |
+|--------------|---------|------|---------------------|
+| 🚚 顺丰速运      | `script/sf/main.py` | ✅ 可用 | 支持签到和积分任务           |
+| 📱 恩山论坛      | `script/enshan/sign_in.py` | ✅ 可用 | 支持每日签到              |
+| 🔐 看雪论坛      | `script/kanxue/sign_in.py` | ✅ 可用 | 支持每日签到              |
+| 📺 上海杨浦      | `script/shyp/main.py` | ✅ 可用 | 支持任务列表和积分任务         |
+| 🏢 华润通-万象星   | `script/huaruntong/999/main.py` | ✅ 可用 | 支持答题签到              |
+| 💳 华润通-微信版   | `script/huaruntong/huaruntong_wx/main.py` | ✅ 可用 | 支持签到送积分             |
 | 🛒 华润通-Ole'  | `script/huaruntong/ole/main.py` | ❌ 不可用 | 需要动态获取微信code换取token |
-| 🎯 华润通-文体未来荟 | `script/huaruntong/wentiweilaihui/main.py` | ✅ 可用 | 支持签到和积分查询 |
-| 👟 鸿星尔克      | `script/erke/main.py` | ✅ 可用 | 支持签到和积分明细查询 |
-| 📝 WPS Office  | `script/wps/main.py` | ✅ 可用 | 支持自动签到和加密参数生成 |
-| 💰 什么值得买      | `script/smzdm/sign_daily_task/main.py` | ✅ 可用 | 支持每日签到和众测任务 |
+| 🎯 华润通-文体未来荟 | `script/huaruntong/wentiweilaihui/main.py` | ✅ 可用 | 支持签到和积分查询           |
+| 👟 鸿星尔克      | `script/erke/main.py` | ✅ 可用 | 支持签到和积分明细查询         |
+| 📝 WPS Office  | `script/wps/main.py` | ✅ 可用 | 支持自动签到和抽奖           |
+| 💰 什么值得买      | `script/smzdm/sign_daily_task/main.py` | ✅ 可用 | 支持每日签到和众测任务         |
 
 ### 状态说明
 
@@ -134,7 +60,7 @@
 1. **推荐使用**: 所有标记为"✅ 可用"的脚本都已经过测试，可以放心使用
 2. **配置要求**: 使用前请确保在 `config/token.json` 中正确配置了相应平台的账号信息
 3. **Cookie 有效期**: 建议定期更新 Cookie 等认证信息，以保证脚本正常运行
-4. **测试建议**: 首次使用新脚本时，建议先在本地测试一次，确认功能正常后再部署到青龙面板
+4. **测试建议**: 使用青龙命令拉取脚本可能会出现混乱的问题,建议直接clone整个项目到青龙的 scripts 目录下
 
 ## 📁 项目结构
 
@@ -246,7 +172,7 @@ pip install pycryptodome
 `config/token.json` 采用 JSON 格式，按平台分类存储账号信息。
 
 #### 示例配置
-
+此处需要运行什么脚本,则去相关脚本文件夹中的md文档查看对应的配置说明。
 ```json
 {
   "sf": {
@@ -268,51 +194,6 @@ pip install pycryptodome
         "cookies": "你的Cookie",
         "formhash": "表单hash",
         "user_agent": "User-Agent"
-      }
-    ]
-  },
-  "kanxue": {
-    "kanxue": {
-      "accounts": [
-        {
-          "account_name": "默认账号",
-          "cookie": "你的Cookie",
-          "csrf_token": "CSRF Token",
-          "user_agent": "User-Agent"
-        }
-      ]
-    }
-  },
-  "erke": {
-    "accounts": [
-      {
-        "account_name": "账号1",
-        "member_id": "你的会员ID",
-        "enterprise_id": "你的企业ID",
-        "unionid": "你的unionid",
-        "openid": "你的openid",
-        "wx_openid": "你的微信openid",
-        "user_agent": "自定义UA（可选）"
-      }
-    ]
-  },
-  "wps": {
-    "accounts": [
-      {
-        "account_name": "账号1",
-        "user_id": 123456789,
-        "cookies": "你的完整Cookie字符串",
-        "user_agent": "自定义UA（可选）"
-      }
-    ]
-  },
-  "smzdm": {
-    "accounts": [
-      {
-        "name": "账号1",
-        "cookie": "你的Cookie",
-        "user_agent": "你的User-Agent",
-        "setting": "可选设置"
       }
     ]
   }
@@ -516,6 +397,12 @@ Cookie 有有效期限制，失效后需要重新获取并更新配置文件。�
 4. 检查文件权限是否正确
 
 ## 📝 更新日志
+
+### 2025-12-18 
+- ✨ **WPS脚本新增抽奖相关任务**:
+  - 🎟️ 支持自动参与每日抽奖
+  - 🎁 支持自动领取抽奖奖励
+  - 📝 更新 WPS 脚本说明文档，加入抽奖功能使用说明
 
 ### 2025-12-08 v2.0
 - ✨ **新增什么值得买(SMZDM)任务模块**: 完整的自动化任务执行系统
