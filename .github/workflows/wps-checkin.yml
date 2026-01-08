@@ -3,8 +3,8 @@ name: WPS Checkin
 on:
   workflow_dispatch:
   schedule:
-    # 每天北京时间 08:10（UTC 00:10）运行
-    - cron: "10 0 * * *"
+    # 每天东京时间 08:10（UTC 23:10）运行
+    - cron: "10 23 * * *"
 
 jobs:
   checkin:
@@ -19,12 +19,13 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install dependencies (force)
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          python -m pip install requests
+          python -c "import requests; print('requests ok:', requests.__version__)"
 
-      - name: Write WPS config/token.json from secret
+      - name: Write config/token.json from secret
         run: |
           mkdir -p config
           cat > config/token.json << 'EOF'
@@ -32,7 +33,6 @@ jobs:
           EOF
 
       - name: Run WPS checkin
-        id: run
         run: |
           set -o pipefail
           python script/wps/main.py 2>&1 | tee output.log
@@ -45,7 +45,6 @@ jobs:
         run: |
           STATUS="${{ job.status }}"
           TITLE="WPS Checkin: ${STATUS}"
-          # 截取日志前 3500 字，避免 Telegram 4096 限制
           LOG=$(python - << 'PY'
           import pathlib
           p = pathlib.Path("output.log")
