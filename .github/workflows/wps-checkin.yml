@@ -1,0 +1,60 @@
+name: WPS Checkin
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 每天北京时间 08:10（UTC 00:10）运行
+    - cron: "10 0 * * *"
+
+jobs:
+  checkin:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Write WPS config/token.json from secret
+        run: |
+          mkdir -p config
+          cat > config/token.json << 'EOF'
+          ${{ secrets.WPS_TOKEN_JSON }}
+          EOF
+
+      - name: Run WPS checkin
+        id: run
+        run: |
+          set -o pipefail
+          python script/wps/main.py 2>&1 | tee output.log
+
+      - name: Send Telegram message (always)
+        if: always()
+        env:
+          BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          STATUS="${{ job.status }}"
+          TITLE="WPS Checkin: ${STATUS}"
+          # 截取日志前 3500 字，避免 Telegram 4096 限制
+          LOG=$(python - << 'PY'
+          import pathlib
+          p = pathlib.Path("output.log")
+          s = p.read_text(errors="ignore") if p.exists() else "(no log)"
+          print(s[:3500])
+          PY
+          )
+          TEXT="$TITLE%0A%0A$LOG"
+          curl -sS -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendMessage" \
+            -d "chat_id=${CHAT_ID}" \
+            -d "text=${TEXT}" \
+            -d "disable_web_page_preview=true" >/dev/null
